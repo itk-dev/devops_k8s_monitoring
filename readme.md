@@ -20,3 +20,11 @@ curl -X POST http://localhost:9090/-/reload
 kubectl port-forward service/prometheus-service 9090
 
 kubectl port-forward service/grafana 3000
+
+## Borads:
+
+* https://raw.githubusercontent.com/nginxinc/nginx-prometheus-exporter/master/grafana/dashboard.json
+* https://grafana.com/grafana/dashboards/8588 (k8s)
+* https://grafana.com/grafana/dashboards/9614 (igress)
+* https://grafana.com/grafana/dashboards/763 (redis)
+* https://grafana.com/grafana/dashboards/2322 (es)

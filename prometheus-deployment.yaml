@@ -81,6 +81,13 @@ spec:
       labels:
         app: prometheus-server
     spec:
+      initContainers:
+        - name: pgsql-data-permission-fix
+          image: busybox
+          command: ["/bin/chown", "nobody:nogroup", "/data"]
+          volumeMounts:
+            - name: prometheus-storage-volume
+              mountPath: /data
       containers:
         - name: prometheus
           image: prom/prometheus:v2.14.0
