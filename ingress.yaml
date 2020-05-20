@@ -1,0 +1,24 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: monitoring
+  name: grafana-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "10254"
+spec:
+  tls:
+    - hosts:
+        - grafana.coverservice.itkdev.dk
+      secretName: grafana-frontend-tls-secret
+  rules:
+    - host: grafana.coverservice.itkdev.dk
+      http:
+        paths:
+          - backend:
+              serviceName: grafana
+              servicePort: 3000
+            path: /
