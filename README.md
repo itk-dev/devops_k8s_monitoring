@@ -37,3 +37,10 @@ First time login "admin:admin"
 kubectl port-forward service/prometheus-service 9090
 kubectl port-forward service/grafana 3000
 ```
+
+## Patches
+
+If the ingress controller don't have the prometheus annontations... patch it.
+```sh
+kubectl patch pod ingress-nginx-ingress-controller --patch "$(cat ingress-patch.yaml)"
+```
