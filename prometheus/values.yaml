@@ -1,0 +1,9 @@
+app:
+  image:
+    version: v2.21.0
+    pullPolicy: IfNotPresent
+
+  storage:
+    class: "azurefile-premium-retain"
+    size: "100Gi"
+    access: "ReadWriteMany"
