@@ -1,0 +1,13 @@
+app:
+  image:
+    version: 7.1.5
+    pullPolicy: IfNotPresent
+
+  storage:
+    class: "azurefile-premium-retain"
+    size: "100Gi"
+    access: "ReadWriteMany"
+
+ingress:
+  enabled: true
+  enableTLS: true

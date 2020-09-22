@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      name: {{ .Release.Name }}
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: grafana
+          image: grafana/grafana:{{ .Values.app.image.version }}
+          imagePullPolicy: {{ .Values.app.image.imagePullPolicy }}
+          ports:
+            - name: grafana
+              containerPort: 3000
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-storage
+            - mountPath: /etc/grafana/provisioning/datasources
+              name: grafana-datasources
+              readOnly: false
+      volumes:
+        - name: grafana-storage
+          persistentVolumeClaim:
+            claimName: grafana-managed-disk          
+        - name: grafana-datasources
+          configMap:
+            defaultMode: 420
+            name: {{ .Release.Name }}-datasources
