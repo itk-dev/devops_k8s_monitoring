@@ -38,7 +38,7 @@ spec:
       volumes:
         - name: grafana-storage
           persistentVolumeClaim:
-            claimName: grafana-managed-disk          
+            claimName: {{ .Values.app.storage.name }}
         - name: grafana-datasources
           configMap:
             defaultMode: 420
