@@ -17,6 +17,13 @@ spec:
         # Ensure rolling updates on config changes.
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
+      initContainers:
+        - name: data-permission-fix
+          image: busybox
+          command: [ "/bin/chown", "nobody:nogroup", "/data" ]
+          volumeMounts:
+            - name: prometheus-storage-volume
+              mountPath: /data
       containers:
         - name: prometheus
           image: prom/prometheus:{{ .Values.app.image.version }}
@@ -39,4 +46,4 @@ spec:
             name: {{ .Release.Name }}-configmap
         - name: prometheus-storage-volume
           persistentVolumeClaim:
-            claimName: prometheus-managed-disk
+            claimName: {{ .Values.app.storage.name }}

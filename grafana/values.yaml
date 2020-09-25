@@ -4,9 +4,10 @@ app:
     pullPolicy: IfNotPresent
 
   storage:
-    class: "azurefile-premium-retain"
-    size: "100Gi"
-    access: "ReadWriteMany"
+    name: "grafana-managed-disk"
+    class: "azuredisk-premium-retain"
+    size: "128Gi"
+    access: "ReadWriteOnce"
 
 ingress:
   enabled: true
