@@ -20,7 +20,7 @@ spec:
       initContainers:
         - name: data-permission-fix
           image: busybox
-          command: [ "/bin/chown", "nobody:nogroup", "/data" ]
+          command: [ "/bin/chown", "65534:65534", "/data" ]
           volumeMounts:
             - name: prometheus-storage-volume
               mountPath: /data
