@@ -15,6 +15,13 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
+      initContainers:
+        - name: data-permission-fix
+          image: busybox
+          command: ["/bin/chown", "-R", "472:472", "/data"]
+          volumeMounts:
+            - name: grafana-storage
+              mountPath: /data
       containers:
         - name: grafana
           image: grafana/grafana:{{ .Values.app.image.version }}

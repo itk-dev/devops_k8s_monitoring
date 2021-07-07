@@ -1,6 +1,6 @@
 app:
   image:
-    version: 7.1.5
+    version: 7.5.9
     pullPolicy: IfNotPresent
 
   storage:
