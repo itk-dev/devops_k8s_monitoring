@@ -5,9 +5,9 @@ app:
 
   storage:
     name: "grafana-managed-disk"
-    class: "azuredisk-premium-retain"
-    size: "128Gi"
-    access: "ReadWriteOnce"
+    class: "azurefile-premium-retain"
+    size: "100Gi"
+    access: "ReadWriteMany"
 
 ingress:
   enabled: true
