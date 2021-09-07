@@ -6,5 +6,5 @@ app:
   storage:
     name: "prometheus-managed-disk"
     class: "azurefile-premium-retain"
-    size: "128Gi"
+    size: "512Gi"
     access: "ReadWriteOnce"
