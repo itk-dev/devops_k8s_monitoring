@@ -8,16 +8,26 @@ kubens monitoring
 ```
 
 ## Prometheus
-We have created helm charts to install Prometheus with a service discovery that matches the cluster setup used for cover
-service.
+```sh
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm repo update
+```
 
 ```sh
-helm upgrade --install prometheus prometheus/ --namespace monitoring
+helm install prometheus prometheus-community/prometheus \ 
+  --set alertmanager.enabled=false \
+  --set configmapReload.alertmanager.enabled=false \
+  --set server.ingress.enabled=false \
+  --set "server.persistentVolume.accessModes={ReadWriteOnce}" \
+  --set server.persistentVolume.size=512Gi \
+  --set server.persistentVolume.storageClass=azurefile-premium-retain \
+  --set pushgateway.enabled=false --namespace monitoring
 ```
 
 We do not expose raw Prometheus to the outside, but the UI is available by using port forwarding.
 ```sh
-kubectl port-forward service/prometheus-service 9090
+kubectl port-forward service/prometheus-server 9090:http
 ```
 
 ## Grafana
