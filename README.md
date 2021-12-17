@@ -15,14 +15,16 @@ helm repo update
 ```
 
 ```sh
-helm install prometheus prometheus-community/prometheus \ 
+helm install prometheus prometheus-community/prometheus \
   --set alertmanager.enabled=false \
   --set configmapReload.alertmanager.enabled=false \
   --set server.ingress.enabled=false \
   --set "server.persistentVolume.accessModes={ReadWriteOnce}" \
   --set server.persistentVolume.size=512Gi \
   --set server.persistentVolume.storageClass=azurefile-premium-retain \
-  --set pushgateway.enabled=false --namespace monitoring
+  --set pushgateway.enabled=false --namespace monitoring \
+  --set server.resources.limits.memory=4096Mi \
+  --set server.resources.requests.memory=4096Mi
 ```
 
 We do not expose raw Prometheus to the outside, but the UI is available by using port forwarding.
