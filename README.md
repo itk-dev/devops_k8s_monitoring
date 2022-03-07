@@ -36,7 +36,7 @@ kubectl port-forward service/prometheus-server 9090:http
 First time login "admin:admin" please log in and changes this at once the installation has completed.
 
 ```sh
-helm upgrade --install grafana grafana/grafana --namespace monitoring --set ingress.domain=<DOMAIN>
+helm upgrade --install grafana grafana --namespace monitoring --set ingress.domain=<DOMAIN>
 ```
 
 ## Patches
